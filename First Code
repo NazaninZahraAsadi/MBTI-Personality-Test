@@ -1,0 +1,115 @@
+import random
+
+def get_personality_reaction(user_type):
+    reactions = {
+        "intj": [
+            "You are a master strategist! 🧠",
+            "You always have a plan. 📋",
+            "Your mind is always three steps ahead! ♟️"
+        ],
+        
+        "intp": [
+            "You are a brilliant thinker! 🧠",
+            "You love exploring how things work! 🔬",
+            "Your curiosity has no limits! 💡"
+        ],
+        
+        "entj": [
+            "You are a natural-born leader! 👑",
+            "You know how to turn ideas into action! 🚀",
+            "You were born to take charge! 💪"
+        ],
+        
+        "entp": [
+            "You are a brilliant debater! 🗣️",
+            "You always have another idea! 💡",
+            "You love challenging the way people think! ⚡"
+        ],
+        
+        "infj": [
+            "You are a mysterious dreamer! 🌙",
+            "You understand people on a deeper level. ✨",
+            "Your imagination is truly powerful! 🔮"
+        ],
+        
+        "infp": [
+            "You are a beautiful dreamer! ✨",
+            "Your imagination knows no boundaries! 🌌",
+            "You see beauty where others don't. 🌷"
+        ],
+        
+        "enfj": [
+            "You are a natural motivator! 🌟",
+            "You make people believe in themselves! ❤️",
+            "You have the heart of a leader! 👑"
+        ],
+        
+        "enfp": [
+            "You are a burst of endless energy! ⚡",
+            "Your enthusiasm is contagious! 🌈",
+            "You turn every idea into an adventure! 🚀"
+        ],
+        
+        "istj": [
+            "You are reliable and responsible! 📚",
+            "You always get things done! 💪",
+            "You are the master of organization! 📋"
+        ],
+        
+        "isfj": [
+            "You are incredibly caring! ❤️",
+            "You always look after the people you love! 🫶",
+            "You are the dependable one everyone needs! 🌷"
+        ],
+        
+        "estj": [
+            "You are a natural organizer! 📋",
+            "You know how to get things done! 💪",
+            "You are a leader people can rely on! 👑"
+        ],
+        
+        "esfj": [
+            "You make every place feel like home! 🏠",
+            "You are incredibly warm and caring! ❤️",
+            "Your energy makes people feel welcome! 🌟"
+        ],
+        
+        "istp": [
+            "You are a natural problem-solver! 🔧",
+            "You know how to stay cool under pressure! 😎",
+            "You learn best by doing! 🛠️"
+        ],
+        
+        "isfp": [
+            "You are a free spirit! 🎨",
+            "You see the world in your own beautiful way! 🌈",
+            "Your creativity makes you unique! 🎭"
+        ],
+        
+        "estp": [
+            "You are an energetic doer! ⚡",
+            "You were made for adventure! 🏎️",
+            "You know how to live in the moment! 🔥"
+        ],
+        
+        "esfp": [
+            "You are the life of the party! 🎉",
+            "Your energy is impossible to ignore! ⚡",
+            "You know how to make every moment fun! 🥳"
+        ]
+    }
+
+    personality_reactions = reactions.get(
+        user_type.lower(),
+        ["Unknown type. Please try again. 🤔"]
+    )
+
+    return random.choice(personality_reactions)
+
+
+user_input = input("Enter your personality type: ")
+user_name = input("Enter your name: ")
+
+personality_response = get_personality_reaction(user_input)
+
+print(f"Hello {user_name}, {personality_response}")
