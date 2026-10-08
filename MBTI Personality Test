@@ -1,0 +1,309 @@
+import random
+
+
+# --------------------------------------------------
+# Personality reactions
+# --------------------------------------------------
+
+REACTIONS = {
+    "INTJ": [
+        "You are a master strategist! 🧠",
+        "Your mind is always three steps ahead! ♟️",
+        "You always seem to have a plan. 📋"
+    ],
+
+    "INTP": [
+        "You are a brilliant thinker! 🧠",
+        "Your curiosity has no limits! 💡",
+        "You love exploring how things work. 🔬"
+    ],
+
+    "ENTJ": [
+        "You are a natural-born leader! 👑",
+        "You know how to turn ideas into action! 🚀",
+        "You were born to take charge! 💪"
+    ],
+
+    "ENTP": [
+        "You are a brilliant debater! 🗣️",
+        "You always have another idea! 💡",
+        "You love challenging the way people think! ⚡"
+    ],
+
+    "INFJ": [
+        "You are a thoughtful and mysterious dreamer! 🌙",
+        "You understand people on a deeper level. ✨",
+        "Your imagination is truly powerful! 🔮"
+    ],
+
+    "INFP": [
+        "You are a beautiful dreamer! ✨",
+        "Your imagination knows no boundaries! 🌌",
+        "You see beauty where others don't. 🌷"
+    ],
+
+    "ENFJ": [
+        "You are a natural motivator! 🌟",
+        "You make people believe in themselves! ❤️",
+        "You have the heart of a leader! 👑"
+    ],
+
+    "ENFP": [
+        "You are full of endless energy! ⚡",
+        "Your enthusiasm is contagious! 🌈",
+        "You turn every idea into an adventure! 🚀"
+    ],
+
+    "ISTJ": [
+        "You are reliable and responsible! 📚",
+        "You always get things done! 💪",
+        "You are the master of organization! 📋"
+    ],
+
+    "ISFJ": [
+        "You are incredibly caring! ❤️",
+        "You are someone people can always rely on. 🫶",
+        "You have a warm and thoughtful personality. 🌷"
+    ],
+
+    "ESTJ": [
+        "You are a natural organizer! 📋",
+        "You know how to get things done! 💪",
+        "You are a leader people can rely on! 👑"
+    ],
+
+    "ESFJ": [
+        "You make every place feel like home! 🏠",
+        "You are incredibly warm and caring! ❤️",
+        "Your energy makes people feel welcome! 🌟"
+    ],
+
+    "ISTP": [
+        "You are a natural problem-solver! 🔧",
+        "You know how to stay cool under pressure! 😎",
+        "You learn best by doing! 🛠️"
+    ],
+
+    "ISFP": [
+        "You are a free spirit! 🎨",
+        "You see the world in your own beautiful way! 🌈",
+        "Your creativity makes you unique! 🎭"
+    ],
+
+    "ESTP": [
+        "You are an energetic doer! ⚡",
+        "You were made for adventure! 🏎️",
+        "You know how to live in the moment! 🔥"
+    ],
+
+    "ESFP": [
+        "You are the life of the party! 🎉",
+        "Your energy is impossible to ignore! ⚡",
+        "You know how to make every moment fun! 🥳"
+    ]
+}
+
+
+# --------------------------------------------------
+# Questions
+# --------------------------------------------------
+
+QUESTIONS = [
+    ("I feel energized after spending time with many people.", "E", "I"),
+    ("I prefer spending time alone to recharge.", "I", "E"),
+
+    ("I usually focus on facts and details.", "S", "N"),
+    ("I often think about possibilities and future ideas.", "N", "S"),
+
+    ("I usually make decisions using logic.", "T", "F"),
+    ("I consider people's feelings when making decisions.", "F", "T"),
+
+    ("I like having a clear plan before starting something.", "J", "P"),
+    ("I prefer keeping my options open.", "P", "J"),
+
+    ("I enjoy starting conversations with new people.", "E", "I"),
+    ("I usually think before speaking.", "I", "E"),
+
+    ("I trust things I can directly observe.", "S", "N"),
+    ("I often notice patterns that others might miss.", "N", "S"),
+
+    ("I prefer objective facts over personal opinions.", "T", "F"),
+    ("I care more about harmony than being right.", "F", "T"),
+
+    ("I like organizing my tasks ahead of time.", "J", "P"),
+    ("I enjoy being spontaneous.", "P", "J"),
+
+    ("I enjoy being around people at social events.", "E", "I"),
+    ("I often need quiet time after social events.", "I", "E"),
+
+    ("I prefer practical solutions to problems.", "S", "N"),
+    ("I enjoy imagining different possibilities.", "N", "S")
+]
+
+
+# --------------------------------------------------
+# Get user's answer
+# --------------------------------------------------
+
+def get_answer():
+    while True:
+        answer = input("Your answer (Y/N): ").strip().lower()
+
+        if answer in ("y", "yes"):
+            return "yes"
+
+        if answer in ("n", "no"):
+            return "no"
+
+        print("Please enter Y or N.")
+
+
+# --------------------------------------------------
+# Calculate personality type
+# --------------------------------------------------
+
+def calculate_personality(answers):
+    scores = {
+        "E": 0,
+        "I": 0,
+        "S": 0,
+        "N": 0,
+        "T": 0,
+        "F": 0,
+        "J": 0,
+        "P": 0
+    }
+
+    for answer, first_type, second_type in answers:
+
+        if answer == "yes":
+            scores[first_type] += 1
+        else:
+            scores[second_type] += 1
+
+    personality = ""
+
+    personality += "E" if scores["E"] >= scores["I"] else "I"
+    personality += "S" if scores["S"] >= scores["N"] else "N"
+    personality += "T" if scores["T"] >= scores["F"] else "F"
+    personality += "J" if scores["J"] >= scores["P"] else "P"
+
+    return personality, scores
+
+
+# --------------------------------------------------
+# Calculate percentages
+# --------------------------------------------------
+
+def calculate_percentages(scores):
+    percentages = {}
+
+    pairs = [
+        ("E", "I"),
+        ("S", "N"),
+        ("T", "F"),
+        ("J", "P")
+    ]
+
+    for first, second in pairs:
+
+        total = scores[first] + scores[second]
+
+        first_percentage = round((scores[first] / total) * 100)
+        second_percentage = 100 - first_percentage
+
+        percentages[first] = first_percentage
+        percentages[second] = second_percentage
+
+    return percentages
+
+
+# --------------------------------------------------
+# Display results
+# --------------------------------------------------
+
+def show_results(name, personality, scores, percentages):
+
+    print("\n" + "=" * 40)
+    print("              YOUR RESULT")
+    print("=" * 40)
+
+    print(f"\nHello {name}! 👋")
+    print(f"Your personality type is: {personality}")
+
+    print("\nPersonality dimensions:")
+
+    print(
+        f"E: {percentages['E']}%  |  "
+        f"I: {percentages['I']}%"
+    )
+
+    print(
+        f"S: {percentages['S']}%  |  "
+        f"N: {percentages['N']}%"
+    )
+
+    print(
+        f"T: {percentages['T']}%  |  "
+        f"F: {percentages['F']}%"
+    )
+
+    print(
+        f"J: {percentages['J']}%  |  "
+        f"P: {percentages['P']}%"
+    )
+
+    reaction = random.choice(REACTIONS[personality])
+
+    print("\nYour personality reaction:")
+    print(reaction)
+
+    print("\nThanks for taking the test! ❤️")
+    print("=" * 40)
+
+
+# --------------------------------------------------
+# Main program
+# --------------------------------------------------
+
+def main():
+
+    print("=" * 40)
+    print("       MBTI PERSONALITY TEST")
+    print("=" * 40)
+
+    name = input("\nWhat is your name? ").strip()
+
+    answers = []
+
+    print("\nAnswer each question with Y or N.")
+    print("There are 20 questions.\n")
+
+    for number, (question, first_type, second_type) in enumerate(
+        QUESTIONS, start=1
+    ):
+
+        print(f"{number}. {question}")
+
+        answer = get_answer()
+
+        answers.append(
+            (answer, first_type, second_type)
+        )
+
+        print()
+
+    personality, scores = calculate_personality(answers)
+
+    percentages = calculate_percentages(scores)
+
+    show_results(
+        name,
+        personality,
+        scores,
+        percentages
+    )
+
+
+if __name__ == "__main__":
+    main()
